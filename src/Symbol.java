@@ -1,78 +1,64 @@
 public class Symbol {
 
-    HandleInput input;
+    HandleInput inputHandler;
 
     public Symbol() {
-        this.input = new HandleInput();
-    }
+        this.inputHandler = new HandleInput();
 
-    // print 3x3 grid of the numbers
-    protected void printGrid() {
-
-        char[][] array = input.multiArrayFromInput();
-
-        System.out.println("---------");
-        for (char[] r : array) {
-            System.out.print("| ");
-            for (char c : r) {
-                System.out.print(c + " ");
-            }
-            System.out.println("|");
-        }
-        System.out.println("---------");
-
-
-//        analyzeSymbol('O');
-        analyzeGameState();
     }
 
 
     // check winning conditions
-    protected void analyzeGameState() {
+    protected String analyzeGameState(char[][] array) {
 
-        char xSymbol = 'X';
-        char oSymbol = 'O';
+        boolean xIsWinning = checkWin(array, 'X');
+        boolean oIsWinning = checkWin(array, 'O');
 
-        boolean xIsWinning = isWinning(xSymbol);
-        boolean oIsWinning = isWinning(oSymbol);
-
-        int numberOfX = getNumberOfSymbols('X');
-        int numberOfO = getNumberOfSymbols('O');
+        int numberOfX = getNumberOfSymbols(array, 'X');
+        int numberOfO = getNumberOfSymbols(array, 'O');
 
         // if difference is 2 or more
-        int diffX = numberOfX - numberOfO;
-        int diffO = numberOfO - numberOfX;
+        int diffX = Math.abs(numberOfX - numberOfO);
 
-        if (!xIsWinning && !oIsWinning && getNumberOfSymbols('_') == 0) {
-            System.out.println("Draw.");
-        } else if (!xIsWinning && !oIsWinning && getNumberOfSymbols('_') > 0) {
-            System.out.println("Game not finished");
-        } else if (xIsWinning && oIsWinning || diffX >= 2 || diffO >= 2) {
-            System.out.println("Impossible.");
+        if (xIsWinning && oIsWinning || diffX >= 2) {
+            return "Impossible";
+        } else if (xIsWinning) {
+            return "X wins";
+        } else if (oIsWinning) {
+            return "O wins";
+        } else if (getNumberOfSymbols(array, '_') > 0) {
+            return "Game not finished";
+        } else {
+            return "Draw";
         }
-
-
 
     }
 
-    protected int getNumberOfSymbols(char symbol) {
-        char[] symbols = input.arrayFromInput();
+    private String boardToString(char[][] board) {
+        StringBuilder str = new StringBuilder();
+        for (char[] row : board) {
+            for (char c : row) {
+                str.append(c);
+            }
+        }
+        return str.toString();
+    }
 
+    protected int getNumberOfSymbols(char[][] array, char letter) {
         int count = 0;
 
-        for (char s : symbols) {
-            if (s == symbol) {
-                count++;
+        for (char[] row : array) {
+            for (char c : row) {
+                if (c == letter) {
+                    count++;
+                }
             }
         }
         return count;
     }
 
     // check if a certain letter won
-    protected boolean isWinning(char letter) {
-
-        char[] symbols = input.arrayFromInput();
-
+    protected boolean checkWin(char[][] array, char letter) {
         int winNum = 3;
 
         int colOne = 0;
@@ -88,9 +74,10 @@ public class Symbol {
 
         boolean winning = false;
 
-        for (int i = 0; i < symbols.length; i++) {
+        String str = boardToString(array);
+        for (int i = 0; i < str.length(); i++) {
             // check vertical
-            if (symbols[i] == letter) {
+            if (str.charAt(i) == letter) {
                 // check vertical
                 if (i % winNum == 0) {
                     colOne++;
@@ -130,24 +117,6 @@ public class Symbol {
         }
 
         return winning;
-
-        // check if it's not winning...
-        // draw or game not finished
-
-//        System.out.println("col1 x count: " + colOne);
-//        System.out.println("col2 x count: " + colTwo);
-//        System.out.println("col3 x count: " + colThree + "\n");
-//
-//        System.out.println("row1 x count: " + rowOne);
-//        System.out.println("row2 x count: " + rowTwo);
-//        System.out.println("row3 x count: " + rowThree + "\n");
-//
-//        System.out.println("diagonal1 x count: " + diagonalOne);
-//        System.out.println("diagonal2 x count: " + diagonalTwo + "\n");
-//
-//        System.out.println("letter count: " + letterCounter);
-
-
     }
 
 

@@ -2,23 +2,17 @@ import java.util.Scanner;
 
 public class HandleInput {
 
-    public HandleInput(Scanner scn) {
+    private final Scanner scanner;
 
+    public HandleInput() {
+        scanner = new Scanner(System.in);
     }
 
     protected String getInputString() {
-        Scanner scn = new Scanner(System.in);
-        return scn.nextLine();
+        return scanner.nextLine();
     }
 
-    protected char[] arrayFromInput() {
-        String input = getInputString();
-        return input.toCharArray();
-    }
-
-    protected char[][] multiArrayFromInput() {
-
-        String symbols = getInputString();
+    protected char[][] multiArrayFromInput(String input) {
 
         int row = 3;
         int col = 3;
@@ -29,8 +23,7 @@ public class HandleInput {
         int count = 0;
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                board[i][j] = symbols.charAt(count++);
-
+                board[i][j] = input.charAt(count++);
             }
         }
         return board;
