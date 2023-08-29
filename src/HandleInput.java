@@ -12,6 +12,7 @@ public class HandleInput {
         return scanner.nextLine();
     }
 
+    /* POSSIBLE DELETION */
     protected char[][] multiArrayFromInput(String input) {
 
         int row = 3;
