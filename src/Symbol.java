@@ -32,9 +32,18 @@ public class Symbol {
             return "Draw";
         }
 
+//        if (xIsWinning) {
+//            return "X wins";
+//        } else if (oIsWinning) {
+//            return "O wins";
+//        } else {
+//            return "Draw";
+//        }
+
+
     }
 
-    private String boardToString(char[][] board) {
+    protected String boardToString(char[][] board) {
         StringBuilder str = new StringBuilder();
         for (char[] row : board) {
             for (char c : row) {
