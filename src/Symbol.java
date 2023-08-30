@@ -30,6 +30,23 @@ public class Symbol {
                 return "Game not finished";
             } else {
                 return "Draw";
+
+//        if (xIsWinning) {
+//            return "X wins";
+//        } else if (oIsWinning) {
+//            return "O wins";
+//        } else {
+//            return "Draw";
+//        }
+
+
+    }
+
+    protected String boardToString(char[][] board) {
+        StringBuilder str = new StringBuilder();
+        for (char[] row : board) {
+            for (char c : row) {
+                str.append(c);
             }
 
         }
