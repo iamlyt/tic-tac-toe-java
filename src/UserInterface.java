@@ -39,9 +39,11 @@ public class UserInterface {
             }  else {
                 System.out.println("Coordinates should be from 1 to 3!");
             }
-
-
         }
+
+        // turns --> x first
+        // take turns until a player wins
+        // --> everytime grid prints, it checks if theres a winner
     }
 
     protected void printGrid(char[][] array) {
@@ -62,8 +64,8 @@ public class UserInterface {
         }
         System.out.println("---------");
 
-        /* DO NOT DELETE */
-//        System.out.println(symbol.analyzeGameState(array));
+        /* DO NOT DELETE -- ANALYZES WIN STATES*/
+        System.out.println(symbol.analyzeGameState(array));
     }
 
 
@@ -93,9 +95,7 @@ public class UserInterface {
         return counter == 0;
     }
 
-    protected  boolean cellIsOccupied(char[][] board, int i,
-                                      int j) {
+    protected  boolean cellIsOccupied(char[][] board, int i, int j) {
         return board[i-1][j-1] == 'X' || board[i-1][j-1] == 'O';
-//        return board[i-1][j-1] != ' ';
     }
 }
