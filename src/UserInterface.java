@@ -10,7 +10,6 @@ public class UserInterface {
     }
 
     protected void start() {
-
         // 1. start with empty board:
         char[][] board = new char[3][3];
         printGrid(board);
@@ -59,7 +58,6 @@ public class UserInterface {
             }  else {
                 System.out.println("Coordinates should be from 1 to 3!");
             }
-
         }
     }
 
@@ -89,11 +87,7 @@ public class UserInterface {
             System.out.println("|");
         }
         System.out.println("---------");
-
-        /* ----------DO NOT DELETE---------- */
-//        System.out.println(symbol.analyzeGameState(array));
     }
-
 
     protected boolean isInteger(String [] str) {
         int counter = 0;
