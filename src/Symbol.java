@@ -1,4 +1,5 @@
 public class Symbol {
+    
     // check winning conditions
     protected String analyzeGameState(char[][] array) {
 
@@ -14,6 +15,7 @@ public class Symbol {
         }
     }
 
+    // turns the 2D array passed into a String
     protected String boardToString(char[][] board) {
         StringBuilder str = new StringBuilder();
         for (char[] row : board) {
