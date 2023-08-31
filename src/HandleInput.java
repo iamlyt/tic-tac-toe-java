@@ -11,4 +11,5 @@ public class HandleInput {
     protected String getInputString() {
         return scanner.nextLine();
     }
+
 }
