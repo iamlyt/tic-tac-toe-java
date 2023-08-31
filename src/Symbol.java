@@ -1,12 +1,4 @@
 public class Symbol {
-
-    HandleInput inputHandler;
-
-    public Symbol() {
-        this.inputHandler = new HandleInput();
-    }
-
-
     // check winning conditions
     protected String analyzeGameState(char[][] array) {
 
@@ -81,7 +73,6 @@ public class Symbol {
                 }
             }
         }
-
         // check 8 winning conditions here:
         if (colOne == winNum || colTwo == winNum || colThree == winNum) {
             winning = true;
