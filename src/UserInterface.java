@@ -61,6 +61,7 @@ public class UserInterface {
         }
     }
 
+    // counts the total number of elements there are in the 2D array
     protected Integer elementCounter(char[][] array) {
         int counter = 0;
         for (char[] r : array) {
@@ -72,7 +73,8 @@ public class UserInterface {
         }
         return counter;
     }
-
+    
+    // prints 3x3 board of the 2D array 
     protected void printGrid(char[][] array) {
         System.out.println("---------");
         for (char[] r : array) {
@@ -89,6 +91,7 @@ public class UserInterface {
         System.out.println("---------");
     }
 
+    // checks if the input are integers
     protected boolean isInteger(String [] str) {
         int counter = 0;
         for (String s : str) {
@@ -99,6 +102,7 @@ public class UserInterface {
         return counter == 0;
     }
 
+    // checks if the input are numbers from 1 to 3
     protected boolean isOneToThree(String [] str) {
         int counter = 0;
         for (String s : str) {
@@ -109,7 +113,8 @@ public class UserInterface {
         return counter == 0;
     }
 
-    protected  boolean cellIsOccupied(char[] [] board, int i, int j) {
+    // checks if the numbers user entered are occupied on the 3x3 board passed
+    protected  boolean cellIsOccupied(char[][] board, int i, int j) {
         return board[i-1][j-1] == 'X' || board[i-1][j-1] == 'O';
     }
 }
