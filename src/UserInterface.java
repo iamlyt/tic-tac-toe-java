@@ -29,36 +29,38 @@ public class UserInterface {
                 int one = Integer.parseInt(userInput[0]);
                 int two = Integer.parseInt(userInput[1]);
 
-                // if cell is not occupied...
-                if (!cellIsOccupied(board, one, two)) {
-
+                if (cellIsOccupied(board, one, two)) {
+                    System.out.println("This cell is occupied! Choose another" +
+                            " one!");
+                } else {
                     // turn here:
                     board[one - 1][two - 1] = turn ? 'X' : 'O';
                     printGrid(board);
 
                     // analyze game state here:
                     String win = symbol.analyzeGameState(board);
+                    // the number 5 indicates the first-most possible win
                     if (elementCounter(board) >= 5) {
                         if (win.equals("X wins") || win.equals(
-                                "O wins") || win.equals("Draw")) {
+                                "O wins")) {
                             System.out.println(win);
                             break;
                         }
+                        if (win.equals("Game not finished")) {
+                            continue;
+                        }
+                    // if the board is finished,
+                    } else if (elementCounter(board) == 9) {
+                        System.out.println(win);
                     }
-
-                } else {
-                    System.out.println("This cell is occupied! Choose another" +
-                            " one!");
+                    // change turns
+                    turn = !turn;
                 }
             }  else {
                 System.out.println("Coordinates should be from 1 to 3!");
             }
-        }
-        turn = !turn;
 
-        // loop --> ask user to enter cell coordinates
-        // then --> analyzes move for correctness and show grid if ok
-        // finally --> ends game if WIN or DRAW --> analyzeGameState()
+        }
     }
 
     protected Integer elementCounter(char[][] array) {

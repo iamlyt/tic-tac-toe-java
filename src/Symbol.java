@@ -4,7 +4,6 @@ public class Symbol {
 
     public Symbol() {
         this.inputHandler = new HandleInput();
-
     }
 
 
@@ -14,33 +13,13 @@ public class Symbol {
         boolean xIsWinning = checkWin(array, 'X');
         boolean oIsWinning = checkWin(array, 'O');
 
-        int numberOfX = getNumberOfSymbols(array, 'X');
-        int numberOfO = getNumberOfSymbols(array, 'O');
-
-        // if difference is 2 or more
-        int diffX = Math.abs(numberOfX - numberOfO);
-
-        if (xIsWinning && oIsWinning || diffX >= 2) {
-            return "Impossible";
-        } else if (xIsWinning) {
+        if (xIsWinning) {
             return "X wins";
         } else if (oIsWinning) {
             return "O wins";
-        } else if (getNumberOfSymbols(array, '_') > 0) {
-            return "Game not finished";
         } else {
             return "Draw";
         }
-
-//        if (xIsWinning) {
-//            return "X wins";
-//        } else if (oIsWinning) {
-//            return "O wins";
-//        } else {
-//            return "Draw";
-//        }
-
-
     }
 
     protected String boardToString(char[][] board) {
@@ -51,19 +30,6 @@ public class Symbol {
             }
         }
         return str.toString();
-    }
-
-    protected int getNumberOfSymbols(char[][] array, char letter) {
-        int count = 0;
-
-        for (char[] row : array) {
-            for (char c : row) {
-                if (c == letter) {
-                    count++;
-                }
-            }
-        }
-        return count;
     }
 
     // check if a certain letter won
