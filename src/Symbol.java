@@ -1,105 +1,100 @@
-import java.util.Scanner;
-
 public class Symbol {
 
-    Scanner scn = new Scanner(System.in);
+    HandleInput inputHandler;
 
     public Symbol() {
-        printState();
-    }
-
-    protected void printState() {
-        printGrid();
-        analyzeGameState();
-    }
-
-    // print 3x3 grid of the numbers
-    protected void printGrid() {
-//        String[] symbols = scn.nextLine().split("");
-//
-//        int grid = 3;
-//        System.out.println("---------");
-//        for (int i = 0; i < symbols.length; i++) {
-//
-//            // beginning of line
-//            if (i % grid == 0) {
-//                System.out.print("| ");
-//            }
-//            System.out.print(symbols[i] + " ");
-//
-//            // end of line
-//            if (i % grid == 2) {
-//                System.out.println("|");
-//            }
-//        }
-//        System.out.println("---------");
-        System.out.println("---------");
-
-        for (char[] r : arrayFromInput()) {
-            System.out.print("| ");
-            for (char c : r) {
-                System.out.print(c + " ");
-            }
-            System.out.println("|");
-        }
-
-        System.out.println("---------");
-
-        analyzeGameState();
-    }
-
-    // return array of char[][] from the input entered
-    protected char[][] arrayFromInput() {
-
-        String symbols = scn.nextLine();
-
-        int row = 3;
-        int col = 3;
-
-        char[][] board = new char[row][col];
-
-        // add the symbols onto the 3x3 board
-        int count = 0;
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                board[i][j] = symbols.charAt(count++);
-
-            }
-        }
-        return board;
+        this.inputHandler = new HandleInput();
     }
 
 
     // check winning conditions
-    // print out the game state:
-    // - Game not finished
-    // - Draw
-    // - X wins
-    // - O wins
-    // - Impossible
-    protected void analyzeGameState() {
-        // check left diagonal
+    protected String analyzeGameState(char[][] array) {
 
-        // check right diagonal
+        boolean xIsWinning = checkWin(array, 'X');
+        boolean oIsWinning = checkWin(array, 'O');
 
-        // check by row
+        if (xIsWinning) {
+            return "X wins";
+        } else if (oIsWinning) {
+            return "O wins";
+        } else {
+            return "Draw";
+        }
+    }
 
-        // check by col
-
-        // check for impossibles
-        // X or O difference is 2 or more, 3 X's and 3 O's
-        // neither side has 3 in a row -- grid still has empty cells
-        char[][] grid = arrayFromInput();
-        boolean XTurn = true;
-
-        for (int row = 0; row < 3; row++) {
-
-            for (int col = 0; col < 3; col++) {
-
+    protected String boardToString(char[][] board) {
+        StringBuilder str = new StringBuilder();
+        for (char[] row : board) {
+            for (char c : row) {
+                str.append(c);
             }
+        }
+        return str.toString();
+    }
 
+    // check if a certain letter won
+    protected boolean checkWin(char[][] array, char letter) {
+        int winNum = 3;
+
+        int colOne = 0;
+        int colTwo = 0;
+        int colThree = 0;
+
+        int rowOne = 0;
+        int rowTwo = 0;
+        int rowThree = 0;
+
+        int diagonalOne = 0;
+        int diagonalTwo = 0;
+
+        boolean winning = false;
+
+        String str = boardToString(array);
+        for (int i = 0; i < str.length(); i++) {
+            // check vertical
+            if (str.charAt(i) == letter) {
+                // check vertical
+                if (i % winNum == 0) {
+                    colOne++;
+                }
+                if (i % winNum == 1) {
+                    colTwo++;
+                }
+                if (i % winNum == 2) {
+                    colThree++;
+                }
+                // check horizontal
+                if (i < winNum) {
+                    rowOne++;
+                } else if (i < 6) {
+                    rowTwo++;
+                } else if (i < 9) {
+                    rowThree++;
+                }
+                // check top left to bottom right diagonal
+                if (i % 4 == 0) {
+                    diagonalOne++;
+                }
+                // check top right to bottom left diagonal
+                if (i % 2 == 0 && i <= 6 && i != 0) {
+                    diagonalTwo++;
+                }
+            }
         }
 
+        // check 8 winning conditions here:
+        if (colOne == winNum || colTwo == winNum || colThree == winNum) {
+            winning = true;
+        } else if (rowOne == winNum || rowTwo == winNum || rowThree == winNum) {
+            winning = true;
+        } else if (diagonalOne == winNum || diagonalTwo == winNum) {
+            winning = true;
+        }
 
+        return winning;
     }
+
+
 }
+
+

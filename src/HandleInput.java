@@ -1,13 +1,15 @@
-package tictactoe;
-
 import java.util.Scanner;
 
 public class HandleInput {
-    Scanner scn = new Scanner(System.in);
+
+    private final Scanner scanner;
 
     public HandleInput() {
-
+        scanner = new Scanner(System.in);
     }
 
+    protected String getInputString() {
+        return scanner.nextLine();
+    }
 
 }
